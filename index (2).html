@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>الموقع الرسمي Drixie - دريكس</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
+  :root {
+    --color-bg: #1a1f2b;
+    --color-primary: #4fd1c5;
+    --color-secondary: #38b2ac;
+    --color-accent: #e53e3e;
+    --color-text: #e2e8f0;
+    --color-text-light: #a0aec0;
+    --color-section-bg: #2d3748;
+    --color-shadow: rgba(79, 209, 197, 0.3);
+  }
+
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Cairo', sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center;
+    line-height: 1.6;
+  }
+
+  header {
+    margin-top: 40px;
+    text-align: center;
+    animation: fadeInDown 1s ease forwards;
+  }
+
+  header h1 {
+    font-size: 3.4em;
+    margin-bottom: 0;
+    color: var(--color-primary);
+    text-shadow: 0 0 10px var(--color-primary);
+  }
+
+  header p.subtitle {
+    margin-top: 5px;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--color-secondary);
+    text-shadow: 0 0 6px var(--color-secondary);
+  }
+
+  main {
+    width: 90%;
+    max-width: 900px;
+    margin: 50px 0 80px 0;
+  }
+
+  section {
+    background: var(--color-section-bg);
+    border-radius: 15px;
+    padding: 25px 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 25px var(--color-shadow);
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  section h2 {
+    border-bottom: 3px solid var(--color-primary);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.8em;
+  }
+
+  .info p {
+    font-size: 1.1em;
+    margin: 8px 0;
+  }
+
+  .info p strong {
+    color: var(--color-accent);
+  }
+
+  .accounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 25px;
+    justify-content: center;
+  }
+
+  .account-group {
+    flex: 1 1 280px;
+    background: #223244;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 15px var(--color-shadow);
+    transition: transform 0.3s ease;
+  }
+
+  .account-group:hover {
+    transform: translateY(-8px);
+  }
+
+  .account-group h3 {
+    color: var(--color-secondary);
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 6px;
+  }
+
+  .account-group a {
+    display: block;
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 600;
+    margin: 8px 0;
+    padding: 7px 12px;
+    border-radius: 6px;
+    background: var(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+    transition: background 0.3s ease;
+  }
+
+  .account-group a:hover {
+    background: var(--color-secondary);
+    box-shadow: 0 0 12px var(--color-secondary);
+  }
+
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .video {
+    background: #223344;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 15px var(--color-shadow);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .video:hover {
+    transform: scale(1.05);
+  }
+
+  .video iframe {
+    width: 100%;
+    height: 160px;
+    display: block;
+    border: none;
+  }
+
+  .video-title {
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9em;
+    color: var(--color-text-light);
+    border-top: 1px solid var(--color-primary);
+    width: 100%;
+    background: #111;
+    position: fixed;
+    bottom: 0;
+  }
+
+  @keyframes fadeInDown {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  @keyframes fadeInUp {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  @media (max-width: 500px) {
+    header h1 {
+      font-size: 2.4em;
+    }
+    section {
+      padding: 20px 15px;
+    }
+    .account-group {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Drixie - دريكس</h1>
+  <p class="subtitle">مبرمج مبتدئ، محتواي ماين كرافت، أبحث عن التطور والجودة العالية</p>
+</header>
+
+<main>
+
+  <section class="info" aria-label="معلوماتي">
+    <h2>معلوماتي</h2>
+    <p><strong>الاسم:</strong> حيدر</p>
+    <p><strong>المهنة:</strong> مبرمج مبتدئ</p>
+    <p><strong>المحتوى:</strong> ماين كرافت</p>
+    <p><strong>أهدافي:</strong> أن نجتمع بمكان واحد، نكون عائلة واحدة، ونرسم البسمة والمتعة على وجوهكم</p>
+  </section>
+
+  <section aria-label="حساباتي وروابطي">
+    <h2>حساباتي وروابطي</h2>
+    <div class="accounts">
+
+      <div class="account-group" aria-label="بوتات">
+        <h3>🤖 بوتات</h3>
+        <a href="https://t.me/Minecraft1122_bot" target="_blank" rel="noopener">بوت المودات</a>
+        <a href="https://t.me/servers1122_bot" target="_blank" rel="noopener">بوت السيرفرات</a>
+      </div>
+
+      <div class="account-group" aria-label="يوتيوب">
+        <h3>📺 يوتيوب</h3>
+        <a href="https://www.youtube.com/@Drixiw" target="_blank" rel="noopener">قناتي على يوتيوب</a>
+      </div>
+
+      <div class="account-group" aria-label="ديسكورد">
+        <h3>🎮 ديسكورد</h3>
+        <a href="https://discord.gg/r3qjaR7x" target="_blank" rel="noopener">سيرفر ديسكورد</a>
+      </div>
+
+      <div class="account-group" aria-label="قنوات تيليجرام">
+        <h3>📢 قنوات تيليجرام</h3>
+        <a href="https://t.me/drixiw" target="_blank" rel="noopener">القناة الأساسية</a>
+        <a href="https://t.me/skindrixie" target="_blank" rel="noopener">قناة السكنات</a>
+        <a href="https://t.me/dx_ser" target="_blank" rel="noopener">قناة السيرفرات</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section aria-label="آخر مقاطع اليوتيوب">
+    <h2>آخر مقاطع اليوتيوب</h2>
+    <div id="videos" class="videos">
+      <p>جارٍ تحميل الفيديوهات...</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 حيدر - جميع الحقوق محفوظة
+</footer>
+
+<script>
+  const channelID = 'Drixiw';
+  const container = document.getElementById('videos');
+
+  container.innerHTML = `
+    <iframe width="100%" height="320" 
+      src="https://www.youtube.com/embed?listType=user_uploads&list=${channelID}" 
+      frameborder="0" allowfullscreen 
+      title="قائمة فيديوهات يوتيوب"></iframe>
+  `;
+</script>
+
+</body>
+</html>
