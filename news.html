@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drixie - الأخبار</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(120deg, #ffe6e6, #ffd9b3, #e6ccff, #b3d9ff);
+  background-size: 800% 800%;
+  animation: gradientMove 25s ease infinite;
+  color: #fff;
+  scroll-behavior: smooth;
+  transition: background 0.5s, color 0.5s;
+}
+
+@keyframes gradientMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+header {
+  padding: 60px 20px 20px;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-size: 3em;
+  margin: 0;
+  text-shadow: 0 0 15px #a18cd1;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+/* زر الوضع الداكن أعلى الزاوية اليمنى */
+#dark-mode-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+#dark-mode-toggle:hover { transform: scale(1.05); }
+
+/* أزرار الهيدر */
+.header-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.header-btn:hover {
+  transform: scale(1.08);
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+
+main {
+  max-width: 1000px;
+  margin: 40px auto 100px;
+  padding: 0 15px;
+}
+
+section {
+  margin-bottom: 40px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  backdrop-filter: blur(12px);
+}
+
+h2 { border-bottom: 2px solid #fbc2eb; padding-bottom: 8px; margin-bottom: 15px; }
+
+/* قائمة الأخبار */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.news-list p {
+  background: rgba(255,255,255,0.15);
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* أزرار الأخبار قابلة للتمرير عند زيادة المحتوى */
+.news-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* زر رجوع للأعلى */
+#back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: none;
+  transition: transform 0.3s ease;
+}
+#back-to-top:hover { transform: scale(1.1); }
+
+/* الوضع الداكن */
+body.dark-mode {
+  background: linear-gradient(120deg, #2c2c3e, #3e3e4f, #4f4f60, #5f5f70);
+  color: #ddd;
+}
+body.dark-mode .news-list p,
+body.dark-mode .header-btn,
+body.dark-mode #dark-mode-toggle {
+  background: linear-gradient(135deg, #555577, #777799);
+  color: #fff;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 15px;
+  background: rgba(0,0,0,0.4);
+  font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Drixie - الأخبار</h1>
+  <p>صفحة تعرض آخر الأخبار والتحديثات</p>
+  
+  <button id="dark-mode-toggle">وضع داكن</button>
+  
+  <div class="header-buttons">
+    <a href="index.html" class="header-btn" target="_blank">الرئيسية</a>
+    <a href="contact.html" class="header-btn" target="_blank">تواصل معي</a>
+    <a href="servers.html" class="header-btn" target="_blank">السيرفرات</a>
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>📰 آخر الأخبار</h2>
+    <div class="news-list">
+      <p>مرحباً! سيتم إضافة آخر الأخبار والتحديثات هنا.</p>
+      <!-- يمكنك إضافة المزيد من الأخبار لاحقاً -->
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2025 حيدر - جميع الحقوق محفوظة
+</footer>
+
+<div id="back-to-top">⬆ الأعلى</div>
+
+<script>
+// زر رجوع للأعلى
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+});
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top:0, behavior:'smooth' });
+});
+
+// زر الوضع الداكن
+const darkModeBtn = document.getElementById('dark-mode-toggle');
+darkModeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+</script>
+
+</body>
+</html>

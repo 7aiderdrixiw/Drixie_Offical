@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drixie - الموقع الرسمي</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(120deg, #ffe6e6, #ffd9b3, #e6ccff, #b3d9ff);
+  background-size: 800% 800%;
+  animation: gradientMove 25s ease infinite;
+  color: #fff;
+  scroll-behavior: smooth;
+  transition: background 0.5s, color 0.5s;
+}
+
+@keyframes gradientMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+header {
+  padding: 60px 20px 20px;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-size: 3em;
+  margin: 0;
+  text-shadow: 0 0 15px #a18cd1;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+/* زر الوضع الداكن أعلى الزاوية اليمنى */
+#dark-mode-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px; /* للاتجاه RTL يصبح اليسار هو الزاوية العليا اليمنى */
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+#dark-mode-toggle:hover { transform: scale(1.05); }
+
+/* أزرار الهيدر */
+.header-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.header-btn:hover {
+  transform: scale(1.08);
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+
+main {
+  max-width: 1000px;
+  margin: 40px auto 100px;
+  padding: 0 15px;
+}
+
+section {
+  margin-bottom: 40px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  backdrop-filter: blur(12px);
+}
+
+h2 { border-bottom: 2px solid #fbc2eb; padding-bottom: 8px; margin-bottom: 15px; }
+.info p strong { color: #ffd966; }
+
+/* الحسابات */
+.accounts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.account-group {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+.account-group:hover { transform: scale(1.03); }
+.account-group h3 {
+  color: #ffe4e6;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  border-bottom: 2px solid #fbc2eb;
+  padding-bottom: 6px;
+}
+.account-group a {
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  transition: transform 0.3s ease;
+}
+.account-group a:hover {
+  transform: scale(1.07);
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+
+iframe { width: 100%; height: 400px; border-radius: 15px; border: none; }
+
+footer {
+  margin-top: 50px;
+  padding: 15px;
+  background: rgba(0,0,0,0.4);
+  font-size: 0.9em;
+}
+
+/* زر رجوع للأعلى */
+#back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: none;
+  transition: transform 0.3s ease;
+}
+#back-to-top:hover { transform: scale(1.1); }
+
+/* الوضع الداكن */
+body.dark-mode {
+  background: linear-gradient(120deg, #2c2c3e, #3e3e4f, #4f4f60, #5f5f70);
+  color: #ddd;
+}
+body.dark-mode .account-group a,
+body.dark-mode .header-btn,
+body.dark-mode #dark-mode-toggle {
+  background: linear-gradient(135deg, #555577, #777799);
+  color: #fff;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Drixie - دريكس</h1>
+  <p>مبرمج مبتدئ | صانع محتوى | قيمر ماين كرافت</p>
+  
+  <button id="dark-mode-toggle">وضع داكن</button>
+  
+  <div class="header-buttons">
+    <a href="contact.html" class="header-btn" target="_blank">تواصل معي</a>
+    <a href="servers.html" class="header-btn" target="_blank">السيرفرات</a>
+    <a href="news.html" class="header-btn" target="_blank">الأخبار</a>
+  </div>
+</header>
+
+<main>
+  <section class="info">
+    <h2>معلوماتي</h2>
+    <p><strong>الاسم:</strong> <span style="font-size:1.3em;">حيدر</span></p>
+    <p><strong>المهنة:</strong> مبرمج مبتدئ , صانع محتوى , قيمر ماين كرافت , يوتيوبر</p>
+    <p><strong>المحتوى:</strong> ماين كرافت</p>
+    <p><strong>أهدافي:</strong> أن نجتمع بمكان واحد، نكون عائلة واحدة، ونرسم البسمة والمتعة على وجوهكم</p>
+  </section>
+
+  <section>
+    <h2>حساباتي وروابطي</h2>
+    <div class="accounts">
+      <div class="account-group">
+        <h3>🤖 بوتات</h3>
+        <a href="https://t.me/Minecraft1122_bot" target="_blank">بوت المودات</a>
+        <a href="https://t.me/servers1122_bot" target="_blank">بوت السيرفرات</a>
+      </div>
+
+      <div class="account-group">
+        <h3>📺 يوتيوب</h3>
+        <a href="https://www.youtube.com/@Drixiw" target="_blank">قناتي على يوتيوب</a>
+      </div>
+
+      <div class="account-group">
+        <h3>🎮 ديسكورد</h3>
+        <a href="https://discord.gg/r3qjaR7x" target="_blank">سيرفر ديسكورد</a>
+      </div>
+
+      <div class="account-group">
+        <h3>📢 قنوات تيليجرام</h3>
+        <a href="https://t.me/drixiw" target="_blank">القناة الأساسية</a>
+        <a href="https://t.me/skindrixie" target="_blank">قناة السكنات</a>
+        <a href="https://t.me/dx_ser" target="_blank">قناة السيرفرات</a>
+      </div>
+
+      <div class="account-group">
+        <h3>🐦 منصة X</h3>
+        <a href="https://x.com/Drixie_offical" target="_blank">حسابي على X</a>
+      </div>
+
+      <div class="account-group">
+  <h3>💻 Itech.io</h3>
+  <a href="https://7ider-drixe.itch.io" target="_blank">حسابي على Itech.io</a>
+</div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>📺 آخر فيديو من قناتي</h2>
+    <iframe src="https://www.youtube.com/embed/mDNvIj3L068" allowfullscreen></iframe>
+  </section>
+</main>
+
+<footer>
+  © 2025 حيدر - جميع الحقوق محفوظة
+</footer>
+
+<div id="back-to-top">⬆ الأعلى</div>
+
+<script>
+// زر رجوع للأعلى
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+});
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top:0, behavior:'smooth' });
+});
+
+// زر الوضع الداكن
+const darkModeBtn = document.getElementById('dark-mode-toggle');
+darkModeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+</script>
+<div id="visitor-counter">
+  <a href="https://www.hitwebcounter.com" target="_blank" rel="noopener">
+    <img src="https://hitwebcounter.com/counter/counter.php?page=21214364&style=0001&nbdigits=5&type=page&initCount=0" 
+         title="Counter Widget" 
+         alt="Visit counter For Websites" />
+  </a>
+</div>
+
+<style>
+#visitor-counter {
+  position: fixed;      /* يثبت العنصر في الصفحة */
+  top: 10px;            /* يبعد 10px من الأعلى */
+  right: 10px;          /* يبعد 10px من اليمين */
+  width: 100px;         /* حجم صغير */
+  height: auto;
+  z-index: 9999;        /* فوق كل العناصر */
+}
+
+#visitor-counter img {
+  width: 100%;          /* يعين حجم الصورة ليتناسب مع الحاوية */
+  height: auto;
+}
+</style>
+
+</body>
+</html>
