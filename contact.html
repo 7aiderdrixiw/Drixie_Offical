@@ -5,206 +5,471 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Drixie - تواصل معي</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: 'Cairo', sans-serif;
-  background: linear-gradient(120deg, #ffe6e6, #ffd9b3, #e6ccff, #b3d9ff);
-  background-size: 800% 800%;
-  animation: gradientMove 25s ease infinite;
-  color: #fff;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  color: #e0e0f0;
   scroll-behavior: smooth;
-  transition: background 0.5s, color 0.5s;
+  transition: background 0.6s, color 0.6s;
+  line-height: 1.6;
+  padding-top: 0;
 }
 
-@keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
+/* ===== شريط التنقل العلوي الثابت ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: rgba(10, 10, 30, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+  transition: 0.3s;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #e0e0f0;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+.nav-links a:hover {
+  background: rgba(255, 215, 0, 0.12);
+  color: #f9d976;
+  transform: translateY(-2px);
+}
+
+/* زر الوضع الداكن داخل الشريط */
+#dark-mode-toggle {
+  padding: 6px 14px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.85em;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+#dark-mode-toggle:hover {
+  transform: scale(1.05);
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #f9d976;
+  box-shadow: 0 0 25px rgba(249, 217, 118, 0.2);
+}
+
+/* ===== الهيدر ===== */
 header {
-  padding: 60px 20px 20px;
+  padding: 30px 20px 25px;
   text-align: center;
   position: relative;
+  background: rgba(10, 10, 30, 0.4);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
-  font-size: 3em;
+  font-size: 3.5em;
   margin: 0;
-  text-shadow: 0 0 15px #a18cd1;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f9d976, #f39c12, #e67e22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(243, 156, 18, 0.3);
+  letter-spacing: 2px;
 }
 
 header p {
-  margin-top: 10px;
-  font-size: 1.2em;
+  margin-top: 8px;
+  font-size: 1.3em;
+  font-weight: 400;
+  color: #b0b0d0;
+  text-shadow: 0 0 15px rgba(100, 100, 200, 0.2);
 }
-
-/* زر الوضع الداكن أعلى الزاوية اليمنى */
-#dark-mode-toggle {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-#dark-mode-toggle:hover { transform: scale(1.05); }
 
 /* أزرار الهيدر */
 .header-buttons {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
 .header-btn {
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 700;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, background 0.3s ease;
+  background: linear-gradient(135deg, #1a2a6c, #3a1c71);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+.header-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(135deg, #3a1c71, #6c2b8a);
+  border-color: #f9d976;
+  box-shadow: 0 8px 30px rgba(106, 43, 138, 0.5);
 }
 
-.header-btn:hover {
-  transform: scale(1.08);
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+/* زر ZENTRO المميز في الهيدر */
+.header-btn.highlight-header {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 30px rgba(243, 156, 18, 0.2);
+}
+.header-btn.highlight-header:hover {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  box-shadow: 0 0 50px rgba(243, 156, 18, 0.5);
+  border-color: #f9d976;
 }
 
 main {
-  max-width: 1000px;
-  margin: 40px auto 100px;
-  padding: 0 15px;
+  max-width: 1200px;
+  margin: 30px auto 80px;
+  padding: 0 20px;
 }
 
 section {
-  margin-bottom: 40px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  margin-bottom: 45px;
+  background: rgba(20, 20, 50, 0.55);
   backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 28px 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 215, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-margin-top: 80px;
+}
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.8);
 }
 
-h2 { border-bottom: 2px solid #fbc2eb; padding-bottom: 8px; margin-bottom: 15px; }
+h2 {
+  font-size: 2em;
+  font-weight: 700;
+  border-bottom: 2px solid #f9d976;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #f9d976;
+  text-shadow: 0 0 20px rgba(249, 217, 118, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-/* روابط التواصل */
-.contact-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-.contact-links a {
-  display: block;
-  margin: 8px 0;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 600;
+/* ===== روابط التواصل (بنفس تصميم الحسابات) ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.contact-card {
+  background: rgba(30, 30, 70, 0.5);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 20px 18px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+.contact-card:hover {
+  transform: scale(1.05);
+  border-color: #f9d976;
+  box-shadow: 0 8px 30px rgba(249, 217, 118, 0.15);
+}
+
+.contact-card h3 {
+  color: #f0e6b0;
+  font-size: 1.3em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contact-card a {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 700;
   text-decoration: none;
   text-align: center;
   color: #fff;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
-  transition: transform 0.3s ease, background 0.3s ease;
+  background: linear-gradient(135deg, #1a2a6c, #2d1b69);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
-.contact-links a:hover {
-  transform: scale(1.07);
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+.contact-card a:hover {
+  transform: scale(1.06);
+  background: linear-gradient(135deg, #2d1b69, #6c2b8a);
+  border-color: #f9d976;
+  box-shadow: 0 0 40px rgba(0, 245, 255, 0.2), inset 0 0 20px rgba(255, 0, 110, 0.1);
 }
 
+/* ===== التذييل ===== */
 footer {
-  margin-top: 50px;
-  padding: 15px;
-  background: rgba(0,0,0,0.4);
-  font-size: 0.9em;
+  margin-top: 60px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  font-size: 0.95em;
+  color: #8888aa;
+  border-top: 1px solid rgba(255, 215, 0, 0.05);
 }
 
-/* زر رجوع للأعلى */
 #back-to-top {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  padding: 10px 15px;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #1a2a6c, #3a1c71);
   color: #fff;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   display: none;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 1em;
+  font-weight: 700;
 }
-#back-to-top:hover { transform: scale(1.1); }
+#back-to-top:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #3a1c71, #6c2b8a);
+  border-color: #f9d976;
+}
 
-/* الوضع الداكن */
-body.dark-mode {
-  background: linear-gradient(120deg, #2c2c3e, #3e3e4f, #4f4f60, #5f5f70);
-  color: #ddd;
+/* ===== الوضع الفاتح ===== */
+body.light-mode {
+  background: linear-gradient(135deg, #f5f0e8, #e8e0f0, #d9d0e8);
+  color: #1a1a2e;
 }
-body.dark-mode .contact-links a,
-body.dark-mode .header-btn,
-body.dark-mode #dark-mode-toggle {
-  background: linear-gradient(135deg, #555577, #777799);
+body.light-mode .sticky-nav {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+body.light-mode .nav-links a {
+  color: #2c3e50;
+}
+body.light-mode .nav-links a:hover {
+  background: rgba(131, 56, 236, 0.08);
+  color: #8e44ad;
+}
+body.light-mode #dark-mode-toggle {
+  background: rgba(0,0,0,0.05);
+  color: #2c3e50;
+  border-color: rgba(0,0,0,0.1);
+}
+body.light-mode #dark-mode-toggle:hover {
+  background: rgba(131, 56, 236, 0.1);
+  border-color: #8e44ad;
+}
+body.light-mode header {
+  background: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+body.light-mode header h1 {
+  background: linear-gradient(135deg, #c0392b, #8e44ad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+body.light-mode header p { color: #2c3e50; }
+body.light-mode .header-btn {
+  background: linear-gradient(135deg, #3498db, #8e44ad);
   color: #fff;
+}
+body.light-mode .header-btn:hover {
+  background: linear-gradient(135deg, #2980b9, #6c3483);
+}
+body.light-mode .header-btn.highlight-header {
+  background: linear-gradient(135deg, #8e44ad, #6c3483);
+}
+body.light-mode .header-btn.highlight-header:hover {
+  background: linear-gradient(135deg, #6c3483, #4a235a);
+}
+body.light-mode section {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+body.light-mode h2 {
+  color: #8e44ad;
+  border-bottom-color: #8e44ad;
+}
+body.light-mode .contact-card {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+body.light-mode .contact-card h3 {
+  color: #2c3e50;
+}
+body.light-mode .contact-card a {
+  background: linear-gradient(135deg, #3498db, #8e44ad);
+  color: #fff;
+}
+body.light-mode .contact-card a:hover {
+  background: linear-gradient(135deg, #2980b9, #6c3483);
+}
+body.light-mode footer {
+  background: rgba(0, 0, 0, 0.05);
+  color: #2c3e50;
+}
+body.light-mode #back-to-top {
+  background: linear-gradient(135deg, #3498db, #8e44ad);
+  color: #fff;
+}
+body.light-mode #back-to-top:hover {
+  background: linear-gradient(135deg, #2980b9, #6c3483);
+}
+
+@media (max-width: 768px) {
+  .sticky-nav {
+    padding: 8px 12px;
+    justify-content: center;
+  }
+  .nav-links {
+    justify-content: center;
+  }
+  .nav-links a {
+    font-size: 0.8em;
+    padding: 4px 10px;
+  }
+  #dark-mode-toggle { font-size: 0.75em; padding: 4px 10px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  header h1 { font-size: 2.5em; }
+  section { padding: 18px 16px; }
+  h2 { font-size: 1.6em; }
+  .header-btn { padding: 6px 14px; font-size: 0.85em; }
 }
 </style>
 </head>
 <body>
 
+<!-- ===== شريط التنقل العلوي الثابت (روابط للصفحة الرئيسية) ===== -->
+<nav class="sticky-nav">
+  <div class="nav-links">
+    <a href="index.html#info">📋 معلوماتي</a>
+    <a href="index.html#accounts">🔗 حساباتي</a>
+    <a href="index.html#studio">🏢 الاستوديو</a>
+    <a href="index.html#videos">📺 الفيديوهات</a>
+  </div>
+  <button id="dark-mode-toggle">🌙 وضع فاتح</button>
+</nav>
+
+<!-- ===== الهيدر مع الأزرار ===== -->
 <header>
-  <h1>Drixie - تواصل معي</h1>
+  <h1>Drixe - تواصل معي</h1>
   <p>اختر الطريقة المفضلة للتواصل</p>
   
-  <button id="dark-mode-toggle">وضع داكن</button>
-  
   <div class="header-buttons">
-    <a href="index.html" class="header-btn" target="_blank">الرئيسية</a>
-    <a href="servers.html" class="header-btn" target="_blank">السيرفرات</a>
-    <a href="news.html" class="header-btn" target="_blank">الأخبار</a>
+    <a href="index.html" class="header-btn">الرئيسية</a>
+    <a href="servers.html" class="header-btn">السيرفرات</a>
+    <a href="news.html" class="header-btn">الأخبار</a>
+    <a href="https://zentro-co.netlify.app/" class="header-btn highlight-header" target="_blank">🚀 ZENTRO</a>
   </div>
 </header>
 
 <main>
   <section>
     <h2>📬 تواصل مباشر</h2>
-    <div class="contact-links">
-      <a href="https://t.me/T_90q" target="_blank">تليجرام </a>
-      <a href="https://discord.com/users/1267863486667686011
-" target="_blank">ديسكورد </a>
-      <a href="https://t.me/servers1122_bot" target="_blank">بوت التواصل </a>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>💬 تليجرام</h3>
+        <a href="https://t.me/T_90q" target="_blank">@T_90q</a>
+      </div>
+      <div class="contact-card">
+        <h3>🎮 ديسكورد</h3>
+        <a href="https://discord.com/users/7aider0520" target="_blank">7aider0520</a>
+      </div>
+      <div class="contact-card">
+        <h3>🤖 بوت التواصل</h3>
+        <a href="https://t.me/servers1122_bot" target="_blank">@servers1122_bot</a>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  © 2025 حيدر - جميع الحقوق محفوظة
+  © 2026 حيدر - جميع الحقوق محفوظة - تم صنع الموقع بواسطتي بالكامل
 </footer>
 
 <div id="back-to-top">⬆ الأعلى</div>
 
 <script>
-// زر رجوع للأعلى
+// ============================================================
+// زر العودة للأعلى
+// ============================================================
 const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
-  backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+  backToTop.style.display = window.scrollY > 250 ? 'block' : 'none';
 });
 backToTop.addEventListener('click', () => {
-  window.scrollTo({ top:0, behavior:'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// زر الوضع الداكن
-const darkModeBtn = document.getElementById('dark-mode-toggle');
-darkModeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
+// ============================================================
+// زر تبديل الوضع
+// ============================================================
+const toggleBtn = document.getElementById('dark-mode-toggle');
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  toggleBtn.textContent = document.body.classList.contains('light-mode') 
+    ? '🌙 وضع داكن' 
+    : '🌙 وضع فاتح';
 });
 </script>
 
 </body>
 </html>
-

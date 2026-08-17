@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,288 +5,970 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Drixie - الموقع الرسمي</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: 'Cairo', sans-serif;
-  background: linear-gradient(120deg, #ffe6e6, #ffd9b3, #e6ccff, #b3d9ff);
-  background-size: 800% 800%;
-  animation: gradientMove 25s ease infinite;
-  color: #fff;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  color: #e0e0f0;
   scroll-behavior: smooth;
-  transition: background 0.5s, color 0.5s;
+  transition: background 0.6s, color 0.6s;
+  line-height: 1.6;
+  padding-top: 0;
 }
 
-@keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
+/* ===== شريط التنقل العلوي الثابت ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: rgba(10, 10, 30, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+  transition: 0.3s;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #e0e0f0;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+.nav-links a:hover {
+  background: rgba(255, 215, 0, 0.12);
+  color: #f9d976;
+  transform: translateY(-2px);
+}
+
+/* زر الوضع الداكن داخل الشريط */
+#dark-mode-toggle {
+  padding: 6px 14px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.85em;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+#dark-mode-toggle:hover {
+  transform: scale(1.05);
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #f9d976;
+  box-shadow: 0 0 25px rgba(249, 217, 118, 0.2);
+}
+
+/* ===== الهيدر (تم إعادة الأزرار إليه) ===== */
 header {
-  padding: 60px 20px 20px;
+  padding: 30px 20px 25px;
   text-align: center;
   position: relative;
+  background: rgba(10, 10, 30, 0.4);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
-  font-size: 3em;
+  font-size: 3.5em;
   margin: 0;
-  text-shadow: 0 0 15px #a18cd1;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f9d976, #f39c12, #e67e22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(243, 156, 18, 0.3);
+  letter-spacing: 2px;
 }
 
 header p {
-  margin-top: 10px;
+  margin-top: 4px;
   font-size: 1.2em;
+  font-weight: 400;
+  color: #b0b0d0;
+  text-shadow: 0 0 15px rgba(100, 100, 200, 0.2);
+}
+header p:first-of-type {
+  margin-top: 8px;
+  font-size: 1.3em;
+  color: #d0d0f0;
 }
 
-/* زر الوضع الداكن أعلى الزاوية اليمنى */
-#dark-mode-toggle {
-  position: absolute;
-  top: 20px;
-  left: 20px; /* للاتجاه RTL يصبح اليسار هو الزاوية العليا اليمنى */
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-#dark-mode-toggle:hover { transform: scale(1.05); }
-
-/* أزرار الهيدر */
+/* أزرار الهيدر - ظهرت من جديد */
 .header-buttons {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
 .header-btn {
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 700;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, background 0.3s ease;
+  background: linear-gradient(135deg, #1a2a6c, #3a1c71);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+.header-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(135deg, #3a1c71, #6c2b8a);
+  border-color: #f9d976;
+  box-shadow: 0 8px 30px rgba(106, 43, 138, 0.5);
 }
 
-.header-btn:hover {
-  transform: scale(1.08);
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+/* زر ZENTRO المميز في الهيدر */
+.header-btn.highlight-header {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 30px rgba(243, 156, 18, 0.2);
+}
+.header-btn.highlight-header:hover {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  box-shadow: 0 0 50px rgba(243, 156, 18, 0.5);
+  border-color: #f9d976;
 }
 
 main {
-  max-width: 1000px;
-  margin: 40px auto 100px;
-  padding: 0 15px;
+  max-width: 1200px;
+  margin: 30px auto 80px;
+  padding: 0 20px;
 }
 
 section {
-  margin-bottom: 40px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  margin-bottom: 45px;
+  background: rgba(20, 20, 50, 0.55);
   backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 28px 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 215, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-margin-top: 80px;
+}
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.8);
 }
 
-h2 { border-bottom: 2px solid #fbc2eb; padding-bottom: 8px; margin-bottom: 15px; }
-.info p strong { color: #ffd966; }
+h2 {
+  font-size: 2em;
+  font-weight: 700;
+  border-bottom: 2px solid #f9d976;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #f9d976;
+  text-shadow: 0 0 20px rgba(249, 217, 118, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-/* الحسابات */
-.accounts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.info p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+.info p strong {
+  color: #f9d976;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 100px;
+}
+.info p span {
+  font-weight: 600;
+  color: #d0d0f0;
+}
+
+/* ===== الاستوديو ===== */
+.studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 10px;
+}
+.studio-grid .studio-info {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 10px 0 5px;
+}
+.studio-grid .studio-info h3 {
+  font-size: 2.2em;
+  background: linear-gradient(135deg, #f9d976, #e67e22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(243, 156, 18, 0.2);
+}
+.studio-grid .studio-info p {
+  font-size: 1.1em;
+  color: #d0d0f0;
+  max-width: 700px;
+  margin: 8px auto 0;
+}
+.studio-services, .studio-tech {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+}
+.studio-services h4, .studio-tech h4 {
+  color: #f9d976;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  border-bottom: 1px dashed rgba(249, 217, 118, 0.2);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.studio-services ul, .studio-tech ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.studio-services ul li, .studio-tech ul li {
+  background: rgba(255, 215, 0, 0.08);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.95em;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: 0.3s;
+  color: #e0e0f0;
+}
+.studio-services ul li:hover, .studio-tech ul li:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: scale(1.05);
+  border-color: #f9d976;
+}
+.studio-btn {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 10px;
+}
+.studio-btn a {
+  display: inline-block;
+  padding: 14px 40px;
+  border-radius: 50px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 30px rgba(243, 156, 18, 0.2);
+  transition: all 0.4s ease;
+  letter-spacing: 1px;
+  font-size: 1.1em;
+}
+.studio-btn a:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 60px rgba(243, 156, 18, 0.4);
+  background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+/* ===== الحسابات ===== */
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
 .account-group {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  padding: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease;
+  background: rgba(30, 30, 70, 0.5);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 18px 16px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
-.account-group:hover { transform: scale(1.03); }
+.account-group:hover {
+  transform: scale(1.03);
+  border-color: #f9d976;
+  box-shadow: 0 8px 30px rgba(249, 217, 118, 0.15);
+}
+
 .account-group h3 {
-  color: #ffe4e6;
-  margin-bottom: 10px;
-  font-size: 1.2em;
-  border-bottom: 2px solid #fbc2eb;
-  padding-bottom: 6px;
+  color: #f0e6b0;
+  font-size: 1.3em;
+  margin-bottom: 14px;
+  border-bottom: 1px dashed rgba(249, 217, 118, 0.3);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
 .account-group a {
   display: block;
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 30px;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
   color: #fff;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
-  transition: transform 0.3s ease;
+  background: linear-gradient(135deg, #1a2a6c, #2d1b69);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 .account-group a:hover {
-  transform: scale(1.07);
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #2d1b69, #6c2b8a);
+  border-color: #f9d976;
+  box-shadow: 0 0 25px rgba(106, 43, 138, 0.4);
 }
 
-iframe { width: 100%; height: 400px; border-radius: 15px; border: none; }
+/* ===== الفيديوهات ===== */
+.video-split {
+  display: flex;
+  gap: 25px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
 
+.video-shorts {
+  flex: 0 0 30%;
+  min-width: 200px;
+}
+
+.video-long {
+  flex: 1;
+  min-width: 280px;
+}
+
+.video-shorts h3,
+.video-long h3 {
+  color: #f0e6b0;
+  font-size: 1.2em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px dashed rgba(249, 217, 118, 0.2);
+  padding-bottom: 8px;
+}
+
+.video-wrapper {
+  background: #0a0a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 215, 0, 0.08);
+  transition: 0.3s;
+  position: relative;
+  cursor: pointer;
+}
+.video-wrapper:hover {
+  border-color: #f9d976;
+  box-shadow: 0 0 35px rgba(249, 217, 118, 0.15);
+}
+
+.ratio-shorts {
+  aspect-ratio: 9 / 16;
+  max-height: 580px;
+}
+
+.ratio-long {
+  aspect-ratio: 16 / 9;
+}
+
+.video-wrapper iframe,
+.video-wrapper .thumb-container {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.thumb-container {
+  position: relative;
+  background: #111;
+  overflow: hidden;
+}
+.thumb-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.video-wrapper:hover .thumb-container img {
+  transform: scale(1.05);
+}
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+.play-btn::after {
+  content: "▶";
+  font-size: 32px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  margin-left: 5px;
+}
+.video-wrapper:hover .play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(255, 215, 0, 0.3);
+  border-color: #f9d976;
+}
+.ratio-shorts .play-btn {
+  width: 50px;
+  height: 50px;
+}
+.ratio-shorts .play-btn::after {
+  font-size: 24px;
+}
+
+.loading,
+.error-msg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8888bb;
+  font-size: 1.1em;
+  background: rgba(0,0,0,0.3);
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.error-msg { color: #ff6b6b; }
+
+/* ===== التذييل ===== */
 footer {
-  margin-top: 50px;
-  padding: 15px;
-  background: rgba(0,0,0,0.4);
-  font-size: 0.9em;
+  margin-top: 60px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  font-size: 0.95em;
+  color: #8888aa;
+  border-top: 1px solid rgba(255, 215, 0, 0.05);
 }
 
-/* زر رجوع للأعلى */
 #back-to-top {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  padding: 10px 15px;
-  background: linear-gradient(135deg, #ffb3b3, #ffe0b3);
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #1a2a6c, #3a1c71);
   color: #fff;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   display: none;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 1em;
+  font-weight: 700;
 }
-#back-to-top:hover { transform: scale(1.1); }
+#back-to-top:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #3a1c71, #6c2b8a);
+  border-color: #f9d976;
+}
 
-/* الوضع الداكن */
-body.dark-mode {
-  background: linear-gradient(120deg, #2c2c3e, #3e3e4f, #4f4f60, #5f5f70);
-  color: #ddd;
+#visitor-counter {
+  text-align: center;
+  margin-top: 30px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  display: inline-block;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 215, 0, 0.05);
 }
-body.dark-mode .account-group a,
-body.dark-mode .header-btn,
-body.dark-mode #dark-mode-toggle {
-  background: linear-gradient(135deg, #555577, #777799);
+#visitor-counter img {
+  max-width: 140px;
+  height: auto;
+  filter: brightness(1.1) drop-shadow(0 0 8px rgba(249, 217, 118, 0.2));
+}
+.counter-wrapper {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+
+/* ===== الوضع الفاتح ===== */
+body.light-mode {
+  background: linear-gradient(135deg, #f5f0e8, #e8e0f0, #d9d0e8);
+  color: #1a1a2e;
+}
+body.light-mode .sticky-nav {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+body.light-mode .nav-links a {
+  color: #2c3e50;
+}
+body.light-mode .nav-links a:hover {
+  background: rgba(131, 56, 236, 0.08);
+  color: #8e44ad;
+}
+body.light-mode #dark-mode-toggle {
+  background: rgba(0,0,0,0.05);
+  color: #2c3e50;
+  border-color: rgba(0,0,0,0.1);
+}
+body.light-mode #dark-mode-toggle:hover {
+  background: rgba(131, 56, 236, 0.1);
+  border-color: #8e44ad;
+}
+body.light-mode header {
+  background: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+body.light-mode header h1 {
+  background: linear-gradient(135deg, #c0392b, #8e44ad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+body.light-mode header p { color: #2c3e50; }
+body.light-mode .header-btn {
+  background: linear-gradient(135deg, #3498db, #8e44ad);
   color: #fff;
+}
+body.light-mode .header-btn:hover {
+  background: linear-gradient(135deg, #2980b9, #6c3483);
+}
+body.light-mode .header-btn.highlight-header {
+  background: linear-gradient(135deg, #8e44ad, #6c3483);
+}
+body.light-mode .header-btn.highlight-header:hover {
+  background: linear-gradient(135deg, #6c3483, #4a235a);
+}
+body.light-mode section {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+body.light-mode h2 {
+  color: #8e44ad;
+  border-bottom-color: #8e44ad;
+}
+body.light-mode .info p strong { color: #c0392b; }
+body.light-mode .studio-grid .studio-info h3 {
+  background: linear-gradient(135deg, #c0392b, #8e44ad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.light-mode .studio-services h4,
+body.light-mode .studio-tech h4 { color: #8e44ad; }
+body.light-mode .studio-services ul li,
+body.light-mode .studio-tech ul li {
+  background: rgba(0,0,0,0.05);
+  color: #2c3e50;
+  border-color: rgba(0,0,0,0.1);
+}
+body.light-mode .studio-services ul li:hover,
+body.light-mode .studio-tech ul li:hover {
+  background: rgba(131, 56, 236, 0.1);
+}
+body.light-mode .studio-btn a {
+  background: linear-gradient(135deg, #8e44ad, #6c3483);
+}
+body.light-mode .studio-btn a:hover {
+  background: linear-gradient(135deg, #6c3483, #4a235a);
+}
+body.light-mode .account-group {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+body.light-mode .account-group h3 { color: #2c3e50; }
+body.light-mode .account-group a {
+  background: linear-gradient(135deg, #3498db, #8e44ad);
+  color: #fff;
+}
+body.light-mode .account-group a:hover {
+  background: linear-gradient(135deg, #2980b9, #6c3483);
+}
+body.light-mode .video-shorts h3,
+body.light-mode .video-long h3 {
+  color: #2c3e50;
+}
+body.light-mode .video-wrapper {
+  background: #ececec;
+  border-color: rgba(0,0,0,0.1);
+}
+body.light-mode .play-btn {
+  background: rgba(0,0,0,0.2);
+  border-color: rgba(255,255,255,0.9);
+}
+body.light-mode footer {
+  background: rgba(0, 0, 0, 0.05);
+  color: #2c3e50;
+}
+body.light-mode #back-to-top {
+  background: linear-gradient(135deg, #3498db, #8e44ad);
+  color: #fff;
+}
+body.light-mode #back-to-top:hover {
+  background: linear-gradient(135deg, #2980b9, #6c3483);
+}
+body.light-mode #visitor-counter {
+  background: rgba(255, 255, 255, 0.5);
+}
+body.light-mode .loading { color: #555; }
+body.light-mode .error-msg { color: #c0392b; }
+
+@media (max-width: 768px) {
+  .sticky-nav {
+    padding: 8px 12px;
+    justify-content: center;
+  }
+  .nav-links {
+    justify-content: center;
+  }
+  .nav-links a {
+    font-size: 0.8em;
+    padding: 4px 10px;
+  }
+  #dark-mode-toggle { font-size: 0.75em; padding: 4px 10px; }
+  .studio-grid { grid-template-columns: 1fr; }
+  .video-split { flex-direction: column; }
+  .video-shorts { flex: 1; width: 100%; }
+  .ratio-shorts { aspect-ratio: 9 / 16; max-height: 400px; }
+  header h1 { font-size: 2.5em; }
+  section { padding: 18px 16px; }
+  h2 { font-size: 1.6em; }
+  .header-btn { padding: 6px 14px; font-size: 0.85em; }
 }
 </style>
 </head>
 <body>
 
+<!-- ===== شريط التنقل العلوي الثابت (روابط داخلية فقط) ===== -->
+<nav class="sticky-nav">
+  <div class="nav-links">
+    <a href="#info">📋 معلوماتي</a>
+    <a href="#accounts">🔗 حساباتي</a>
+    <a href="#studio">🏢 الاستوديو</a>
+    <a href="#videos">📺 الفيديوهات</a>
+  </div>
+  <button id="dark-mode-toggle">🌙 وضع فاتح</button>
+</nav>
+
+<!-- ===== الهيدر مع الأزرار الخارجية تحت الاسم ===== -->
 <header>
-  <h1>Drixie - دريكس</h1>
+  <h1>Drixe - دريكس</h1>
+  <p>الموقع التعريفي كل شيء عني </p>
   <p>مبرمج مبتدئ | صانع محتوى | قيمر ماين كرافت</p>
-  
-  <button id="dark-mode-toggle">وضع داكن</button>
   
   <div class="header-buttons">
     <a href="contact.html" class="header-btn" target="_blank">تواصل معي</a>
     <a href="servers.html" class="header-btn" target="_blank">السيرفرات</a>
     <a href="news.html" class="header-btn" target="_blank">الأخبار</a>
+    <a href="https://zentro-co.netlify.app/" class="header-btn highlight-header" target="_blank">الاستوديو الخاص بي ZENTRO</a>
   </div>
 </header>
 
 <main>
-  <section class="info">
-    <h2>معلوماتي</h2>
+  <section id="info" class="info">
+    <h2>📋 معلوماتي</h2>
     <p><strong>الاسم:</strong> <span style="font-size:1.3em;">حيدر</span></p>
     <p><strong>المهنة:</strong> مبرمج مبتدئ , صانع محتوى , قيمر ماين كرافت , يوتيوبر</p>
-    <p><strong>المحتوى:</strong> ماين كرافت</p>
+    <p><strong>المحتوى:</strong>و تطوير العاب  ماين كرافت</p>
     <p><strong>أهدافي:</strong> أن نجتمع بمكان واحد، نكون عائلة واحدة، ونرسم البسمة والمتعة على وجوهكم</p>
   </section>
 
-  <section>
-    <h2>حساباتي وروابطي</h2>
+  <section id="accounts">
+    <h2>🔗 حساباتي وروابطي</h2>
     <div class="accounts">
       <div class="account-group">
         <h3>🤖 بوتات</h3>
         <a href="https://t.me/Minecraft1122_bot" target="_blank">بوت المودات</a>
         <a href="https://t.me/servers1122_bot" target="_blank">بوت السيرفرات</a>
       </div>
-
       <div class="account-group">
         <h3>📺 يوتيوب</h3>
         <a href="https://www.youtube.com/@Drixiw" target="_blank">قناتي على يوتيوب</a>
       </div>
-
       <div class="account-group">
         <h3>🎮 ديسكورد</h3>
-        <a href="https://discord.gg/6HEKkr3sVP" target="_blank">سيرفر ديسكورد</a>
+        <a href="https://discord.gg/r3qjaR7x" target="_blank">سيرفر ديسكورد</a>
       </div>
-
       <div class="account-group">
         <h3>📢 قنوات تيليجرام</h3>
         <a href="https://t.me/drixiw" target="_blank">القناة الأساسية</a>
         <a href="https://t.me/skindrixie" target="_blank">قناة السكنات</a>
         <a href="https://t.me/dx_ser" target="_blank">قناة السيرفرات</a>
       </div>
-
       <div class="account-group">
         <h3>🐦 منصة X</h3>
         <a href="https://x.com/Drixie_offical" target="_blank">حسابي على X</a>
       </div>
-
       <div class="account-group">
-  <h3>💻 Itech.io</h3>
-  <a href="https://7ider-drixe.itch.io" target="_blank">حسابي على Itech.io</a>
-</div>
-
+        <h3>💻 Itech.io</h3>
+        <a href="https://7ider-drixe.itch.io" target="_blank">حسابي على Itech.io</a>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2>📺 آخر فيديو من قناتي</h2>
-    <iframe src="https://youtu.be/AHxJg9SN54U" allowfullscreen></iframe>
+  <!-- ===== الاستوديو الخاص بي ===== -->
+  <section id="studio">
+    <h2>🏢 الاستوديو الخاص بي</h2>
+    <div class="studio-grid">
+      <div class="studio-info">
+        <h3>ZENTRO — العراقية للبرمجة</h3>
+        <p>نُعيد إحياء مجد الرافدين رقمياً — من العراق إلى العالم، نُطوّر مواقع، ألعاب، تطبيقات، أنظمة ذكاء اصطناعي، وكل ما يخطر ببالك بأعلى معايير الجودة.</p>
+      </div>
+      <div class="studio-services">
+        <h4>🛠️ الخدمات</h4>
+        <ul>
+          <li>تطوير المواقع</li>
+          <li>برمجة الألعاب</li>
+          <li>تطبيقات الجوال</li>
+          <li>الذكاء الاصطناعي</li>
+          <li>Arduino & Raspberry Pi</li>
+        </ul>
+      </div>
+      <div class="studio-tech">
+        <h4>⚡ الخبرات التقنية</h4>
+        <ul>
+          <li>JavaScript / TypeScript</li>
+          <li>Python</li>
+          <li>C++ / C#</li>
+          <li>SQL / NoSQL</li>
+          <li>React / Next.js</li>
+          <li>Cloud & DevOps</li>
+        </ul>
+      </div>
+      <div class="studio-btn">
+        <a href="https://zentro-co.netlify.app/" target="_blank">🚀 زيارة الاستوديو</a>
+      </div>
+    </div>
   </section>
+  <!-- ===== نهاية الاستوديو ===== -->
+
+  <!-- ===== قسم الفيديوهات ===== -->
+  <section id="videos">
+    <h2>📺 آخر مقاطع الفيديو</h2>
+    <div class="video-split">
+      <div class="video-shorts">
+        <h3>📱 شورتس</h3>
+        <div id="shorts-container" class="video-wrapper ratio-shorts">
+          <div class="loading">⏳ جاري تحميل الشورت...</div>
+        </div>
+      </div>
+      <div class="video-long">
+        <h3>🎬 فيديوهات طويلة</h3>
+        <div id="long-container" class="video-wrapper ratio-long">
+          <div class="loading">⏳ جاري تحميل الفيديو...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== نهاية القسم ===== -->
+
 </main>
 
 <footer>
-  © 2025 حيدر - جميع الحقوق محفوظة
+  © 2026 حيدر - جميع الحقوق محفوظة - تم صنع الموقع بواسطتي بالكامل 
+  <div class="counter-wrapper">
+    <div id="visitor-counter">
+      <a href="https://www.hitwebcounter.com" target="_blank" rel="noopener">
+        <img src="https://hitwebcounter.com/counter/counter.php?page=21214364&style=0001&nbdigits=5&type=page&initCount=0" 
+             title="Counter Widget" 
+             alt="Visit counter For Websites" />
+      </a>
+    </div>
+  </div>
 </footer>
 
 <div id="back-to-top">⬆ الأعلى</div>
 
 <script>
-// زر رجوع للأعلى
+// ============================================================
+// ✅ معرف قناتك الصحيح
+// ============================================================
+const channelId = 'UC6TDLYTlHC02ABFpqsSVr0Q';
+
+// ============================================================
+// جلب الفيديوهات وعرض أحدث شورت وأحدث فيديو طويل تلقائياً
+// ============================================================
+const RSS_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+
+async function fetchVideos() {
+  const shortsContainer = document.getElementById('shorts-container');
+  const longContainer = document.getElementById('long-container');
+
+  shortsContainer.innerHTML = `<div class="loading">⏳ جاري تحميل الشورت...</div>`;
+  longContainer.innerHTML = `<div class="loading">⏳ جاري تحميل الفيديو...</div>`;
+
+  try {
+    const response = await fetch(RSS_URL);
+    if (!response.ok) throw new Error('فشل في جلب البيانات');
+    const data = await response.json();
+
+    if (!data.items || data.items.length === 0) {
+      throw new Error('لا توجد فيديوهات في القناة');
+    }
+
+    let shorts = [];
+    let longs = [];
+
+    data.items.forEach(item => {
+      if (item.link.includes('/shorts/')) {
+        shorts.push(item);
+      } else {
+        longs.push(item);
+      }
+    });
+
+    function extractVideoId(link) {
+      try {
+        const url = new URL(link);
+        if (url.hostname === 'youtu.be') {
+          return url.pathname.slice(1);
+        }
+        if (link.includes('/shorts/')) {
+          return link.split('/shorts/')[1].split('?')[0];
+        }
+        return url.searchParams.get('v');
+      } catch {
+        return null;
+      }
+    }
+
+    function renderVideoWithThumbnail(container, item, isShorts = false) {
+      if (!item) {
+        container.innerHTML = `<div class="error-msg">🚫 لا يوجد فيديو ${isShorts ? 'شورت' : 'طويل'} بعد</div>`;
+        return;
+      }
+      const videoId = extractVideoId(item.link);
+      if (!videoId) {
+        container.innerHTML = `<div class="error-msg">⚠️ تعذر استخراج معرف الفيديو</div>`;
+        return;
+      }
+
+      const thumbUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      const embedSrc = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+
+      container.innerHTML = `
+        <div class="thumb-container" id="thumb-${videoId}">
+          <img src="${thumbUrl}" alt="Thumbnail" loading="lazy" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg';">
+          <div class="play-btn"></div>
+        </div>
+      `;
+
+      const wrapper = container.querySelector('.thumb-container');
+      wrapper.addEventListener('click', function() {
+        if (this.dataset.loaded === 'true') return;
+        this.dataset.loaded = 'true';
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = embedSrc;
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.position = 'absolute';
+        iframe.style.top = '0';
+        iframe.style.left = '0';
+        
+        this.innerHTML = '';
+        this.appendChild(iframe);
+        this.style.cursor = 'default';
+      });
+    }
+
+    renderVideoWithThumbnail(shortsContainer, shorts[0] || null, true);
+    renderVideoWithThumbnail(longContainer, longs[0] || null, false);
+
+  } catch (error) {
+    console.error('خطأ في تحميل الفيديوهات:', error);
+    shortsContainer.innerHTML = `<div class="error-msg">❌ تعذر تحميل الشورتات (تأكد من معرف القناة)</div>`;
+    longContainer.innerHTML = `<div class="error-msg">❌ تعذر تحميل الفيديوهات الطويلة (تأكد من معرف القناة)</div>`;
+  }
+}
+
+fetchVideos();
+
+// ============================================================
+// زر العودة للأعلى
+// ============================================================
 const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
-  backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+  backToTop.style.display = window.scrollY > 250 ? 'block' : 'none';
 });
 backToTop.addEventListener('click', () => {
-  window.scrollTo({ top:0, behavior:'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// زر الوضع الداكن
-const darkModeBtn = document.getElementById('dark-mode-toggle');
-darkModeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
+// ============================================================
+// زر تبديل الوضع
+// ============================================================
+const toggleBtn = document.getElementById('dark-mode-toggle');
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  toggleBtn.textContent = document.body.classList.contains('light-mode') 
+    ? '🌙 وضع داكن' 
+    : '🌙 وضع فاتح';
 });
 </script>
-<div id="visitor-counter">
-  <a href="https://www.hitwebcounter.com" target="_blank" rel="noopener">
-    <img src="https://hitwebcounter.com/counter/counter.php?page=21214364&style=0001&nbdigits=5&type=page&initCount=0" 
-         title="Counter Widget" 
-         alt="Visit counter For Websites" />
-  </a>
-</div>
-
-<style>
-#visitor-counter {
-  position: fixed;      /* يثبت العنصر في الصفحة */
-  top: 10px;            /* يبعد 10px من الأعلى */
-  right: 10px;          /* يبعد 10px من اليمين */
-  width: 100px;         /* حجم صغير */
-  height: auto;
-  z-index: 9999;        /* فوق كل العناصر */
-}
-
-#visitor-counter img {
-  width: 100%;          /* يعين حجم الصورة ليتناسب مع الحاوية */
-  height: auto;
-}
-</style>
 
 </body>
 </html>
