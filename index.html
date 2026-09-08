@@ -7,6 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
 
+/* ===== RESET ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,7 +25,7 @@ body {
   scroll-behavior: smooth;
   transition: background 0.6s, color 0.6s;
   line-height: 1.6;
-  padding-top: 0;
+  overflow: hidden; /* يمنع التمرير خلف الـ overlay */
 }
 
 @keyframes gradientShift {
@@ -33,7 +34,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ===== شريط التنقل العلوي الثابت ===== */
+/* ===== شريط التنقل العلوي الثابت (يظهر لكن لا يمكن التفاعل معه) ===== */
 .sticky-nav {
   position: sticky;
   top: 0;
@@ -75,7 +76,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* زر الوضع الداكن داخل الشريط */
 #dark-mode-toggle {
   padding: 6px 14px;
   border-radius: 30px;
@@ -96,61 +96,98 @@ body {
   box-shadow: 0 0 25px rgba(249, 217, 118, 0.2);
 }
 
-/* ===== اللافتة الجديدة (إشعار تغيير الرابط) ===== */
-#redirect-notice {
-  background: #f39c12;
-  color: #1a1a2e;
-  padding: 12px 20px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.05em;
+/* ===== شاشة التغطية الكاملة (الرسالة الإجبارية) ===== */
+#mandatory-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  border-bottom: 2px solid #e67e22;
-  transition: all 0.4s ease;
-  box-shadow: 0 4px 20px rgba(243, 156, 18, 0.3);
-}
-#redirect-notice a {
-  color: #fff;
-  text-decoration: underline;
-  font-weight: 800;
-  background: rgba(0,0,0,0.15);
-  padding: 2px 10px;
-  border-radius: 20px;
-  transition: 0.3s;
-}
-#redirect-notice a:hover {
-  background: rgba(0,0,0,0.3);
-}
-#redirect-notice .close-btn {
-  background: none;
-  border: 2px solid #1a1a2e;
-  color: #1a1a2e;
-  font-weight: 800;
-  padding: 4px 14px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: 0.3s;
-}
-#redirect-notice .close-btn:hover {
-  background: #1a1a2e;
-  color: #f39c12;
-}
-#redirect-notice.hidden {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-  max-height: 0;
-  padding: 0 20px;
-  overflow: hidden;
-  border-bottom: 0;
+  z-index: 999999;
+  flex-direction: column;
+  padding: 30px;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
 }
 
-/* ===== الهيدر ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#mandatory-overlay .content {
+  max-width: 700px;
+  background: rgba(255, 215, 0, 0.08);
+  border: 2px solid #f9d976;
+  border-radius: 40px;
+  padding: 50px 40px;
+  box-shadow: 0 0 80px rgba(249, 217, 118, 0.2);
+}
+
+#mandatory-overlay h1 {
+  font-size: 3.2em;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #f9d976, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(243, 156, 18, 0.3);
+}
+
+#mandatory-overlay p {
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #f0e6b0;
+  margin: 20px 0 10px;
+}
+
+#mandatory-overlay .new-link {
+  display: inline-block;
+  font-size: 1.9em;
+  font-weight: 800;
+  color: #f9d976;
+  background: rgba(0,0,0,0.4);
+  padding: 10px 30px;
+  border-radius: 60px;
+  margin: 20px 0 30px;
+  border: 2px solid #f9d976;
+  box-shadow: 0 0 40px rgba(249, 217, 118, 0.15);
+  word-break: break-all;
+}
+
+#mandatory-overlay .btn-go {
+  display: inline-block;
+  padding: 18px 60px;
+  font-size: 1.8em;
+  font-weight: 800;
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #f9d976, #e67e22);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 40px rgba(243, 156, 18, 0.3);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+#mandatory-overlay .btn-go:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 70px rgba(243, 156, 18, 0.6);
+}
+
+#mandatory-overlay .sub-note {
+  margin-top: 25px;
+  font-size: 1.1em;
+  color: #aaaadd;
+}
+
+/* ===== باقي المحتوى (يظهر لكن غير قابل للتفاعل بسبب الـ overlay) ===== */
 header {
   padding: 30px 20px 25px;
   text-align: center;
@@ -273,7 +310,7 @@ h2 {
   color: #d0d0f0;
 }
 
-/* ===== الاستوديو ===== */
+/* ===== باقي الأقسام مختصرة (نفس الكود السابق) ===== */
 .studio-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -360,13 +397,11 @@ h2 {
   background: linear-gradient(135deg, #e67e22, #d35400);
 }
 
-/* ===== الحسابات ===== */
 .accounts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 25px;
 }
-
 .account-group {
   background: rgba(30, 30, 70, 0.5);
   backdrop-filter: blur(6px);
@@ -381,7 +416,6 @@ h2 {
   border-color: #f9d976;
   box-shadow: 0 8px 30px rgba(249, 217, 118, 0.15);
 }
-
 .account-group h3 {
   color: #f0e6b0;
   font-size: 1.3em;
@@ -392,7 +426,6 @@ h2 {
   align-items: center;
   gap: 8px;
 }
-
 .account-group a {
   display: block;
   margin: 10px 0;
@@ -414,24 +447,20 @@ h2 {
   box-shadow: 0 0 25px rgba(106, 43, 138, 0.4);
 }
 
-/* ===== الفيديوهات ===== */
 .video-split {
   display: flex;
   gap: 25px;
   align-items: stretch;
   flex-wrap: wrap;
 }
-
 .video-shorts {
   flex: 0 0 30%;
   min-width: 200px;
 }
-
 .video-long {
   flex: 1;
   min-width: 280px;
 }
-
 .video-shorts h3,
 .video-long h3 {
   color: #f0e6b0;
@@ -443,7 +472,6 @@ h2 {
   border-bottom: 1px dashed rgba(249, 217, 118, 0.2);
   padding-bottom: 8px;
 }
-
 .video-wrapper {
   background: #0a0a1a;
   border-radius: 16px;
@@ -458,16 +486,13 @@ h2 {
   border-color: #f9d976;
   box-shadow: 0 0 35px rgba(249, 217, 118, 0.15);
 }
-
 .ratio-shorts {
   aspect-ratio: 9 / 16;
   max-height: 580px;
 }
-
 .ratio-long {
   aspect-ratio: 16 / 9;
 }
-
 .video-wrapper iframe,
 .video-wrapper .thumb-container {
   width: 100%;
@@ -478,7 +503,6 @@ h2 {
   top: 0;
   left: 0;
 }
-
 .thumb-container {
   position: relative;
   background: #111;
@@ -529,7 +553,6 @@ h2 {
 .ratio-shorts .play-btn::after {
   font-size: 24px;
 }
-
 .loading,
 .error-msg {
   width: 100%;
@@ -548,7 +571,6 @@ h2 {
 }
 .error-msg { color: #ff6b6b; }
 
-/* ===== التذييل ===== */
 footer {
   margin-top: 60px;
   padding: 20px;
@@ -602,7 +624,7 @@ footer {
   margin: 20px 0 10px;
 }
 
-/* ===== الوضع الفاتح ===== */
+/* ===== الوضع الفاتح (يُطبق على الخلفية لكن الـ overlay يبقى غامقاً) ===== */
 body.light-mode {
   background: linear-gradient(135deg, #f5f0e8, #e8e0f0, #d9d0e8);
   color: #1a1a2e;
@@ -626,26 +648,6 @@ body.light-mode #dark-mode-toggle {
 body.light-mode #dark-mode-toggle:hover {
   background: rgba(131, 56, 236, 0.1);
   border-color: #8e44ad;
-}
-body.light-mode #redirect-notice {
-  background: #8e44ad;
-  color: #fff;
-  border-bottom-color: #6c3483;
-}
-body.light-mode #redirect-notice a {
-  color: #f9d976;
-  background: rgba(255,255,255,0.15);
-}
-body.light-mode #redirect-notice a:hover {
-  background: rgba(255,255,255,0.3);
-}
-body.light-mode #redirect-notice .close-btn {
-  border-color: #fff;
-  color: #fff;
-}
-body.light-mode #redirect-notice .close-btn:hover {
-  background: #fff;
-  color: #8e44ad;
 }
 body.light-mode header {
   background: rgba(255, 255, 255, 0.5);
@@ -758,7 +760,6 @@ body.light-mode .error-msg { color: #c0392b; }
     padding: 4px 10px;
   }
   #dark-mode-toggle { font-size: 0.75em; padding: 4px 10px; }
-  #redirect-notice { font-size: 0.9em; gap: 10px; }
   .studio-grid { grid-template-columns: 1fr; }
   .video-split { flex-direction: column; }
   .video-shorts { flex: 1; width: 100%; }
@@ -767,6 +768,13 @@ body.light-mode .error-msg { color: #c0392b; }
   section { padding: 18px 16px; }
   h2 { font-size: 1.6em; }
   .header-btn { padding: 6px 14px; font-size: 0.85em; }
+
+  /* تعديل حجم الخط في الـ overlay */
+  #mandatory-overlay h1 { font-size: 2.2em; }
+  #mandatory-overlay p { font-size: 1.3em; }
+  #mandatory-overlay .new-link { font-size: 1.3em; padding: 8px 20px; }
+  #mandatory-overlay .btn-go { font-size: 1.3em; padding: 14px 40px; }
+  #mandatory-overlay .content { padding: 30px 20px; }
 }
 </style>
 </head>
@@ -783,17 +791,21 @@ body.light-mode .error-msg { color: #c0392b; }
   <button id="dark-mode-toggle">🌙 وضع فاتح</button>
 </nav>
 
-<!-- ===== لافتة إشعار تغيير الرابط ===== -->
-<div id="redirect-notice">
-  <span>
-    🔔 تم تغيير رابط الموقع إلى 
-    <a href="https://drixe-7aider.web.app/" target="_blank">https://drixe-7aider.web.app/</a>
-    — هذا هو الرابط الرسمي الجديد، آمن وليس تهكيرًا.
-  </span>
-  <button class="close-btn" onclick="document.getElementById('redirect-notice').classList.add('hidden')">✕ فهمت</button>
+<!-- ===== شاشة التغطية الإجبارية (لا يمكن إغلاقها) ===== -->
+<div id="mandatory-overlay">
+  <div class="content">
+    <h1>🔔 تغيير رابط الموقع</h1>
+    <p>الرابط الجديد هو:</p>
+    <div class="new-link">https://drixe-7aider.web.app/</div>
+    <br>
+    <button class="btn-go" onclick="window.location.href='https://drixe-7aider.web.app/'">
+      🚀 انتقل إلى الموقع الجديد
+    </button>
+    <div class="sub-note">⚠️ هذا هو الرابط الرسمي الجديد، آمن وليس تهكيراً</div>
+  </div>
 </div>
 
-<!-- ===== الهيدر ===== -->
+<!-- ===== باقي محتوى الموقع (يظهر خلف الـ overlay لكن غير قابل للتفاعل) ===== -->
 <header>
   <h1>Drixe - دريكس</h1>
   <p>الموقع التعريفي كل شيء عني </p>
@@ -849,7 +861,6 @@ body.light-mode .error-msg { color: #c0392b; }
     </div>
   </section>
 
-  <!-- ===== الاستوديو الخاص بي ===== -->
   <section id="studio">
     <h2>🏢 الاستوديو الخاص بي</h2>
     <div class="studio-grid">
@@ -883,9 +894,7 @@ body.light-mode .error-msg { color: #c0392b; }
       </div>
     </div>
   </section>
-  <!-- ===== نهاية الاستوديو ===== -->
 
-  <!-- ===== قسم الفيديوهات ===== -->
   <section id="videos">
     <h2>📺 آخر مقاطع الفيديو</h2>
     <div class="video-split">
@@ -903,8 +912,6 @@ body.light-mode .error-msg { color: #c0392b; }
       </div>
     </div>
   </section>
-  <!-- ===== نهاية القسم ===== -->
-
 </main>
 
 <footer>
@@ -1051,7 +1058,14 @@ toggleBtn.addEventListener('click', () => {
     ? '🌙 وضع داكن' 
     : '🌙 وضع فاتح';
 });
-</script>
 
+// منع أي محاولة لإغلاق الـ overlay (مثل الضغط على Esc)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});
+</script>
 </body>
 </html>
